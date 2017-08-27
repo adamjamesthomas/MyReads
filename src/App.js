@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import AddBook from './AddBook'
+import Book from './Book'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -19,15 +20,20 @@ class BooksApp extends React.Component {
   BooksAPI.search("King",3).then((books) => {
     this.setState({ books })
   })
+
+
  
   console.log(this.state.books.length)
 }
+  onUpdateShelf(book, shelf) {
+    BooksAPI.updateShelf(book, shelf);
+  }
 
   render() {
     return (
       <div className="app">
         <Route path="/AddBook" render={() => (
-          <AddBook />
+          <AddBook onUpdateShelf={this.onUpdateShelf} />
         )}/>
           
         <Route exact path="/" render={() => (
