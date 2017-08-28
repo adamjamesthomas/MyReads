@@ -17,8 +17,9 @@ class BooksApp extends React.Component {
     books: []
   }
   componentDidMount() {
-  BooksAPI.search("King",3).then((books) => {
+  BooksAPI.getAll().then((books) => {
     this.setState({ books })
+    console.log(books)
   })
 
 
@@ -26,7 +27,7 @@ class BooksApp extends React.Component {
   console.log(this.state.books.length)
 }
   onUpdateShelf(book, shelf) {
-    BooksAPI.updateShelf(book, shelf);
+    BooksAPI.update(book, shelf);
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { search } from './BooksAPI'
+import { search, getAll } from './BooksAPI'
 import BookShelf from './BookShelf'
 import PropTypes from 'prop-types'
 
@@ -19,11 +19,24 @@ class AddBook extends Component {
     if (terms === ""){
       return
     }
-
+    var shelfBooks
+    getAll().then((books) => 
+    {
+      shelfBooks = books
+    });
+    console.log(shelfBooks);
     search(terms, 5).then((books) => {
+      books.map((book) => 
+    {
+      let shelfBook = shelfBooks.find(sb => sb.id === book.id);
+      book.shelf = "none"
+      if (shelfBook !== undefined){
+        book.shelf = shelfBook.shelf
+      }
+    })
       if (books !== undefined) {
       this.setState({books})
-      //console.log(this.state.books)
+      console.log(this.state.books)
       }
     })
       
@@ -57,6 +70,7 @@ class AddBook extends Component {
             books={this.state.books}
             title="Search Results"
             className="books-grid"
+            onUpdateShelf={this.props.onUpdateShelf}
             />
           </div>
         )
