@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 import Book from './Book'
 
 class BookShelf extends Component {
@@ -12,10 +9,6 @@ static propTypes = {
     title: PropTypes.string.isRequired,
     className: PropTypes.string,
     onUpdateShelf: PropTypes.func.isRequired
-}
-
-state = {
-    query: ''
 }
 
 updateQuery = (query) => {
@@ -28,8 +21,7 @@ clearQuery = () => {
 
 render() {
 
-    const {books, title, className} = this.props
-    const {query} = this.state
+    const {books, title, className}=this.props
 
   return (
       
@@ -40,13 +32,13 @@ render() {
             {books.map((book) => (
                     <li key={book.id}>
                         <Book 
-                        book = {book}
+                        book={book}
                         bookID={book.id} 
                         imageURL={book.imageLinks.smallThumbnail}
                         shelf={0}
                         title={book.title}
                         authors={book.authors}
-                        onUpdateShelf={this.props.onUpdateShelf}
+                        onUpdateShelf={(book, shelf) => this.props.onUpdateShelf(book, shelf)}
                         />
                     </li>
                 ))}

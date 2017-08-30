@@ -7,12 +7,17 @@ import PropTypes from 'prop-types'
 class AddBook extends Component {
 
   static propTypes = {
-    onUpdateShelf: PropTypes.func.isRequired
+    onUpdateShelf: PropTypes.func.isRequired,
+    onExit: PropTypes.func.isRequired
 }
 
   state = 
   {
     books: []
+  }
+  handleExit()
+  {
+    this.props.onExit();
   }
   getBooks(terms)
   {
@@ -24,19 +29,18 @@ class AddBook extends Component {
     {
       shelfBooks = books
     });
-    console.log(shelfBooks);
     search(terms, 5).then((books) => {
       books.map((book) => 
     {
-      let shelfBook = shelfBooks.find(sb => sb.id === book.id);
-      book.shelf = "none"
-      if (shelfBook !== undefined){
-        book.shelf = shelfBook.shelf
+      let shelfBook=shelfBooks.find(sb => sb.id === book.id);
+      book.shelf="none"
+      if (shelfBook!==undefined){
+        book.shelf=shelfBook.shelf
       }
+      return books
     })
-      if (books !== undefined) {
+      if (books!==undefined) {
       this.setState({books})
-      console.log(this.state.books)
       }
     })
       
@@ -47,6 +51,7 @@ class AddBook extends Component {
             <div className="search-books-bar">
               <Link 
                 className="close-search" 
+                onClick={this.handleExit}
                 to="/"
                 >
                 Close
@@ -70,7 +75,7 @@ class AddBook extends Component {
             books={this.state.books}
             title="Search Results"
             className="books-grid"
-            onUpdateShelf={this.props.onUpdateShelf}
+            onUpdateShelf={(book, shelf) => this.props.onUpdateShelf(book, shelf)}
             />
           </div>
         )
