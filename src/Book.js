@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-//import serializeForm from 'form-serialize'
 
 class Book extends Component {
 
@@ -14,8 +13,6 @@ handleChange = (e) => {
     var indexToShelf = {0:"none", 1:"currentlyReading", 2:"wantToRead", 3:"read", 4:"none"}
     this.props.onUpdateShelf(this.props.book, indexToShelf[index]);
     this.props.book.shelf=indexToShelf[index];
-    //console.log(indexToShelf[index])
-
 }
 
 updateQuery = (query) => {
@@ -29,7 +26,6 @@ clearQuery = () => {
 render() {
     const {title, bookID, authors} = this.props.book
     const book = this.props.book
-    //console.log(authors)
   
   return (
 
