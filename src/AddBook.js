@@ -50,6 +50,8 @@ class AddBook extends Component {
           this.setState({books: bookResults});
           }
       });
+      } else {
+      this.setState({books: []})
       }
     }, (err) => {
       console.log(err);
