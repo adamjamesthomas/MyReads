@@ -15,18 +15,9 @@ handleChange = (e) => {
     this.props.book.shelf=indexToShelf[index];
 }
 
-updateQuery = (query) => {
-    this.setState({ query: query.trim() })
-}
-
-clearQuery = () => {
-    this.setState({ query: ''})
-}
-
 render() {
     const {title, bookID, authors} = this.props.book
     const book = this.props.book
-  
   return (
 
     <div className="book">

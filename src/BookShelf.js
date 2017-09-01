@@ -11,13 +11,6 @@ static propTypes = {
     onUpdateShelf: PropTypes.func.isRequired
 }
 
-updateQuery = (query) => {
-    this.setState({ query: query.trim() })
-}
-
-clearQuery = () => {
-    this.setState({ query: ''})
-}
 
 render() {
 

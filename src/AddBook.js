@@ -33,12 +33,12 @@ class AddBook extends Component {
       if(!books.error){
         bookResults = books;
         //get all books on a shelf
-        let shelfBooks = [];
+        var shelfBooks = [];
         getAll().then((books) => {
           shelfBooks = books;
-        });
+        
         //update shelves for book results already on shelves
-        books.map((book) => {
+        bookResults.map((book) => {
         let shelfBook=shelfBooks.find(sb => sb.id === book.id);
         book.shelf="none"
         if (shelfBook!==undefined){
@@ -46,10 +46,13 @@ class AddBook extends Component {
         }
         return books;
         })
+        if (bookResults!==undefined) {
+          this.setState({books: bookResults});
+          }
+      });
       }
-      if (bookResults!==undefined) {
-      this.setState({books: bookResults});
-      }
+    }, (err) => {
+      console.log(err);
     })
       
   }
